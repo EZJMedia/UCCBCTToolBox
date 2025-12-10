@@ -1,0 +1,344 @@
+﻿<WrapPanel x:Class="UCCBCTToolBox.Views.MainCalcsPanel"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:ViewModel="clr-namespace:UCCBCTToolBox.ViewModels"
+           MinWidth="100"
+           MinHeight="100"
+           Orientation="Vertical">
+    <WrapPanel.Resources >
+        <ViewModel:MainCalcsPanelViewModel x:Key="model" />
+
+        <Style TargetType="TextBox" >
+            <Setter Property="MinWidth" Value="60" />
+            <Setter Property="Margin" Value="0 0 4 0" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+            <Setter Property="MaxLength" Value="8" />
+            <Style.Triggers>
+                <Trigger Property="Tag" Value="ms-2">
+                    <Setter Property="Margin" Value="2 0 0 0"/>
+                </Trigger>
+
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}}, Path=Tag}" Value="DetailPanel">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="MinWidth" Value="30" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </WrapPanel.Resources>
+
+    <WrapPanel.DataContext>
+        <Binding Source="{StaticResource model}" />
+    </WrapPanel.DataContext>
+
+    <StackPanel x:Name="SaveArea">
+        <StackPanel Background="White">
+            <StackPanel Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Head Tilt" Margin="0 0 8 0"/>
+                    <RadioButton GroupName="HeadTiltGroup" Content="R" Margin="0 0 8 0" 
+                                     IsChecked="{Binding Path=HTModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RadioButton GroupName="HeadTiltGroup" Content="L" 
+                                     IsChecked="{Binding Path=HTModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                    <TextBox Text="{Binding Path=HeadTiltInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                    <TextBlock Text="Degrees" />
+                </StackPanel>
+
+                <StackPanel Margin="0 4 0 0">
+                    <TextBlock Text="Superior Lateral mass" />
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBlock Text="High on the" Margin="0 0 8 0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="SLMGroup" Content="R" Margin="0 0 8 0"
+                                     IsChecked="{Binding Path=SLMModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <RadioButton GroupName="SLMGroup" Content="L" 
+                                     IsChecked="{Binding Path=SLMModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBox Text="{Binding Path=SLMInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                        <TextBlock Text="Degrees" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="0 4 0 0">
+                    <TextBlock Text="Inferior Lateral mass" />
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBlock Text="High on the" Margin="0 0 8 0" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="ILMGroup" Content="R" Margin="0 0 8 0" 
+                                     IsChecked="{Binding Path=ILMModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <RadioButton GroupName="ILMGroup" Content="L" 
+                                     IsChecked="{Binding Path=ILMModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBox Text="{Binding Path=ILMInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                        <TextBlock Text="Degrees" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="0 4 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Cervical spine tilt" Margin="0 0 8 0" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="CSTGroup" Content="R" Margin="0 0 8 0" 
+                                     IsChecked="{Binding Path=CSTModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <RadioButton GroupName="CSTGroup" Content="L" 
+                                     IsChecked="{Binding Path=CSTModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBox Text="{Binding Path=CSTInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                        <TextBlock Text="Degrees" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                    <TextBlock Text="C" />
+                    <TextBox Tag="ms-2" Text="{Binding Path=CInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                    <TextBlock Text="A" Margin="8 0 0 0" />
+                    <TextBox Tag="ms-2" Text="{Binding Path=AInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                </StackPanel>
+
+                <StackPanel Margin="0 4 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Atlas Anterior on the" Margin="0 0 8 0" />
+                        <RadioButton GroupName="AAGroup" Content="R" Margin="0 0 8 0" 
+                                     IsChecked="{Binding Path=AAModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <RadioButton GroupName="AAGroup" Content="L" 
+                                     IsChecked="{Binding Path=AAModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBox Text="{Binding Path=AAInput, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                        <TextBlock Text="Degrees" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="0 4 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBlock Text="C2 spinous" Margin="0 0 8 0" />
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton GroupName="C2Group" Content="R" Margin="0 0 8 0"
+                                     IsChecked="{Binding Path=C2ModeR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <RadioButton GroupName="C2Group" Content="L"
+                                     IsChecked="{Binding Path=C2ModeL, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 2 0 0">
+                        <TextBox Text="{Binding Path=C2Input, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=Default}" />
+                        <TextBlock Text="Degrees" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Background="White"  Margin="0 8 0 0">
+            <StackPanel Margin="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="{Binding Path=FACLabel, Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=FASLabel, Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=FALabel, Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=HACLabel, Mode=OneWay}" />
+                        <TextBlock Text="{Binding Path=HaxLabel, Mode=OneWay}" />
+                        <TextBlock Text="C/A" />
+                        <TextBlock Text="Angular Rotation" Margin="0 6 8 0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Height" Value="0"/>
+                                    <Setter Property="Visibility"  Value="Hidden" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=SelectedTranslation, Mode=OneWay}" Value="2">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Height" Value="auto"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=SelectedTranslation, Mode=OneWay}" Value="3">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Height" Value="auto"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Tag="DetailPanel">
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=FACText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=FACCalc, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=FASText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=FASCalc, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=FAText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=FACalc, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=HACText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=HACCalc, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=HAxText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=HAxCalc, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=CInput, Mode=OneWay}" />
+                            <TextBlock Text="/" />
+                            <TextBox Text="{Binding Path=AInput, Mode=OneWay}" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=ARText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=CSTInput, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+
+                            <WrapPanel.Style>
+                                <Style TargetType="WrapPanel">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                    <Setter Property="Height" Value="0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=SelectedTranslation, Mode=OneWay}" Value="2">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Height" Value="auto"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=SelectedTranslation, Mode=OneWay}" Value="3">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="Height" Value="auto"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </WrapPanel.Style>
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+
+
+        <StackPanel Background="White"  Margin="0 8 0 0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Setter Property="Height" Value="0" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=SelectedTranslation}" Value="2">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Setter Property="Height" Value="auto" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <StackPanel Margin="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="HF" />
+                        <TextBlock Text="RA" />
+                        <TextBlock Text="RF" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Tag="DetailPanel">
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=HF, Mode=OneWay}" />
+                            <TextBlock Text="inches" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=RA, Mode=OneWay}" />
+                            <TextBlock Text="degrees" />
+                        </WrapPanel>
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=HACText, Mode=OneWay}" />
+                            <TextBox Text="{Binding Path=HACCalc, Mode=OneWay}" />
+                            <TextBlock Text="inches" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+
+    <Grid Background="White" Margin="0 8 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+            
+        <Grid Margin="4" Grid.Row="0">
+            <Button x:Name="ClearAll" Content="Clear All" Click="ClearAll_Click" />
+        </Grid>
+        <Grid Margin="4" Grid.Row="1">
+            <Button x:Name="Autoload" Content="Autoload" Click="Autoload_Click" />
+        </Grid>
+        <Grid Margin="4" Grid.Row="2">
+            <StackPanel Orientation="Vertical">
+                <ComboBox ItemsSource="{Binding Path=Translations}" Grid.Column="0"
+            SelectedIndex="{Binding Path=SelectedTranslation, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="string">
+                            <TextBlock Text="{Binding .}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="4" Grid.Row="3">
+            <Button x:Name="CopyToClipBoard" Content="Sonus" Click="CopyToClipBoard_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Setter Property="Height" Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=SelectedTranslation}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Height" Value="auto" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+        <Grid Margin="4" Grid.Row="3">
+            <Button x:Name="CalculateOrthospinology" Content="Calculate" Click="CalculateOrthospinology_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Setter Property="Height" Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=SelectedTranslation}" Value="2">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Setter Property="Height" Value="auto" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+
+    <StackPanel Background="White" Margin="0 8 0 0">
+        <Grid Margin="8">
+            <Button x:Name="Save" Content="Save Measurements" Click="Save_Click" />
+        </Grid>
+    </StackPanel>
+</WrapPanel>

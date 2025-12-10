@@ -1,0 +1,64 @@
+﻿<Window x:Class="UCCBCTToolBox.Views.ProductRegistrationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ViewModel="clr-namespace:UCCBCTToolBox.ViewModels"
+        xmlns:local="clr-namespace:UCCBCTToolBox.Views"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Title="Product Registration" Height="240" Width="400">
+        <Window.Resources>
+            <ViewModel:ProductRegistrationViewModel x:Key="model" />
+        </Window.Resources>
+        <Window.DataContext>
+            <Binding Source="{StaticResource model}" />
+        </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock Text="Please register your product to continue" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0 0 8 0">
+                    <TextBlock Text="Serial No." MinHeight="20" Padding="2" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="SerialInput" Padding="2"
+                             Text="{Binding Source={StaticResource Settings}, Path=Default.Serial}" />
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 8 0 0">
+                <Button x:Name="SubmitButton" Content="Submit" Padding="12 4"
+                        Click="SubmitButton_Click"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 8 0 0"
+                        x:Name="TrialBlock" Visibility="{Binding Path=TrialBlockVisibility}">
+                <Button x:Name="TrialButton" Content="Open Trial" Padding="12 4"
+                        Click="TrialButton_Click"/>
+                <Border BorderBrush="Red" BorderThickness="1" Margin="8 0 0 0" Padding="4 0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Trial Expiration Date: " VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Path=TrialEnd}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
